@@ -115,11 +115,13 @@ const ProductForm = ({ onSave, product }) => {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
+              className="border border-black px-2 py-1 rounded-lg"
             >
-              <option value=""></option>
+              <option value="">-</option>
               <option value="Eletrônicos">Eletrônicos</option>
               <option value="Roupas">Roupas</option>
               <option value="Livros">Livros</option>
+              <option value="Outros">Outros</option>
             </select>
           </div>
 

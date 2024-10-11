@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {BookOpenText, Cable, CircleEllipsisIcon, Shirt} from "lucide-react"
 
 const ProductList = ({ onEdit, onDelete, products }) => {
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -14,11 +15,13 @@ const ProductList = ({ onEdit, onDelete, products }) => {
     : products;
 
   return (
+    <>
     <main className="pb-8">
       <hr className="pb-8" />
-
       <div className="mb-4 text-center">
-        <label htmlFor="categoryFilter" className="mr-2 font-medium">Filtrar por Categoria:</label>
+        <label htmlFor="categoryFilter" className="mr-2 font-medium">
+          Filtrar por Categoria:
+        </label>
         <select
           id="categoryFilter"
           value={categoryFilter}
@@ -29,6 +32,7 @@ const ProductList = ({ onEdit, onDelete, products }) => {
           <option value="Eletrônicos">Eletrônicos</option>
           <option value="Roupas">Roupas</option>
           <option value="Livros">Livros</option>
+          <option value="Outros">Outros</option>
         </select>
       </div>
 
@@ -36,16 +40,27 @@ const ProductList = ({ onEdit, onDelete, products }) => {
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <div
-              className="p-4 shadow-2xl rounded-xl w-96 text-center border border-black"
+              className="shadow-2xl rounded-xl w-96 text-center border border-black"
               key={product.id}
             >
-              <h2 className="text-lg font-semibold">{product.name}</h2>
-              <h6 className="text-gray-400 font-semibold italic">{product.description}</h6>
-              <h6 className="text-gray-300 font-medium">R$ {product.price}</h6>
-              <h6 className="text-gray-300 font-medium">{product.quantity}</h6>
-              <h6 className="text-gray-300 font-medium">{product.category}</h6> {/* Exibir categoria */}
-              <hr className="my-2" />
-              <div className="gap-x-3 flex items-center justify-center">
+              <header className="bg-gray-400 rounded-t-xl py-1 px-3 flex items-center justify-between shadow-sm">
+                <h2 className="text-lg font-semibold">{product.name}</h2>
+                {product.category == "Eletrônicos" ? <Cable /> : product.category == "Roupas" ? <Shirt /> : product.category == "Livros" ?  <BookOpenText /> : <CircleEllipsisIcon />}
+
+              </header>
+              <main className="p-4">
+              <h6 className="text-gray-400 font-semibold italic">
+                {product.description}
+              </h6>
+                <h6 className="text-gray-300 font-medium">
+                  R$ - {product.price}
+                </h6>
+                <h6 className="text-gray-300 font-medium">
+                  Qtd - {product.quantity}
+                </h6>
+                <hr className="my-2" />
+              </main>
+              <footer className="gap-x-3 flex items-center justify-center pb-4">
                 <button
                   className="border border-black px-3 py-1 rounded-lg shadow-md bg-green-200 transition-all hover:opacity-80 font-medium"
                   onClick={() => onEdit(product)}
@@ -58,14 +73,18 @@ const ProductList = ({ onEdit, onDelete, products }) => {
                 >
                   Deletar
                 </button>
-              </div>
+              </footer>
             </div>
           ))
         ) : (
-          <p className="text-gray-500 text-center">Nenhum produto encontrado para esta categoria.</p>
+          <p className="text-gray-500 text-center">
+            Nenhum produto encontrado.
+          </p>
         )}
       </div>
     </main>
+    <hr className="pb-8" />
+    </>
   );
 };
 
