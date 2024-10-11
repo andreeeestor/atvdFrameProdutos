@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ProductForm from "./components/ProductForm";
 import ProductList from "./components/ProductList";
 import axios from "axios";
+import ProductChart from "./components/ProductChart";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -37,6 +38,7 @@ function App() {
         onDelete={productDelete}
         products={products}
       />
+      <ProductChart /> 
     </div>
   );
 }

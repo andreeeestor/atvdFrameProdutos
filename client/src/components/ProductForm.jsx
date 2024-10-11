@@ -6,6 +6,7 @@ const ProductForm = ({ onSave, product }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     if (product) {
@@ -13,6 +14,7 @@ const ProductForm = ({ onSave, product }) => {
       setDescription(product.description);
       setPrice(product.price);
       setQuantity(product.quantity);
+      setCategory(product.category);
     }
   }, [product]);
 
@@ -25,7 +27,7 @@ const ProductForm = ({ onSave, product }) => {
 
   const submit = async (e) => {
     e.preventDefault();
-    const newProduct = { name, description, price, quantity };
+    const newProduct = { name, description, price, quantity, category };
     if (product) {
       await axios.put(
         `http://localhost:3001/api/products/${product.id}`,
@@ -106,6 +108,19 @@ const ProductForm = ({ onSave, product }) => {
                 className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
+          </div>
+
+          <div>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+            >
+              <option value=""></option>
+              <option value="Eletrônicos">Eletrônicos</option>
+              <option value="Roupas">Roupas</option>
+              <option value="Livros">Livros</option>
+            </select>
           </div>
 
           <div>
